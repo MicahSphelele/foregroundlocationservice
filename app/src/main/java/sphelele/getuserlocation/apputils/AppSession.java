@@ -7,15 +7,19 @@ import android.util.Log;
 public class AppSession {
 
     private SharedPreferences preferences;
+    private static AppSession instance=null;
 
     private AppSession(Context context){
 
-        preferences=context.getSharedPreferences("getuserlocation_session", Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences("getuserlocation_session", Context.MODE_PRIVATE);
+        if(instance!=null){
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
     }
 
     public static synchronized AppSession getInstance(Context context){
-        AppSession instance=null;
-        //noinspection ConstantConditions
+
+
         if(instance==null){
             instance=new AppSession(context);
         }
